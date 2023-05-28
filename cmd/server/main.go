@@ -27,14 +27,14 @@ func main() {
 		Handler:           mux,
 		ReadHeaderTimeout: 100 * time.Millisecond,
 		ConnState: func(conn net.Conn, state http.ConnState) {
-			logger.Info("connection state changed", zap.String("state", state.String()))
+			logger.Debug("connection state changed", zap.String("state", state.String()))
 		},
 	}
 
 	// TCP listener
 	lis, err := net.Listen("tcp", ":8080")
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		logger.Fatal("failed to listen", zap.Error(err))
 	}
 
 	// start the server
